@@ -19,6 +19,7 @@ import { CoreSitesProvider } from '@providers/sites';
 import { CoreMainMenuDelegate, CoreMainMenuHandlerData } from '../../providers/delegate';
 import { CoreMainMenuProvider, CoreMainMenuCustomItem } from '../../providers/mainmenu';
 import { CoreLoginHelperProvider } from '@core/login/providers/helper';
+import { CoreLoginCredentialsPage } from '@core/login/pages/credentials/credentials';
 
 /**
  * Page that displays the list of main menu options that aren't in the tabs.
@@ -153,5 +154,6 @@ export class CoreMainMenuMorePage implements OnDestroy {
      */
     logout(): void {
         this.sitesProvider.logout();
+        this.navCtrl.push('CoreLoginCredentialsPage');
     }
 }

@@ -33,7 +33,7 @@ import { CoreConfigConstants } from '../../../../configconstants';
 })
 export class CoreLoginCredentialsPage {
     credForm: FormGroup;
-    siteUrl: string;
+    siteUrl: "https://estar.escorts.co.in";
     siteChecked = false;
     siteName: string;
     logoUrl: string;
@@ -61,7 +61,7 @@ export class CoreLoginCredentialsPage {
             private translate: TranslateService,
             private eventsProvider: CoreEventsProvider) {
 
-        this.siteUrl = navParams.get('siteUrl');
+        // this.siteUrl = navParams.get('siteUrl');
         this.siteConfig = navParams.get('siteConfig');
         this.urlToOpen = navParams.get('urlToOpen');
 
@@ -118,7 +118,7 @@ export class CoreLoginCredentialsPage {
         return this.sitesProvider.checkSite(siteUrl, protocol).then((result) => {
 
             this.siteChecked = true;
-            this.siteUrl = result.siteUrl;
+            // this.siteUrl = result.siteUrl;
 
             this.siteConfig = result.config;
             this.treatSiteConfig();
@@ -189,16 +189,22 @@ export class CoreLoginCredentialsPage {
         this.appProvider.closeKeyboard();
 
         // Get input data.
-        const siteUrl = this.siteUrl,
+        const siteUrl = "https://estar.escorts.co.in",
             username = this.credForm.value.username,
             password = this.credForm.value.password;
+            console.log("siteUrl ==>>>"  , siteUrl) ;
+            console.log("username and password ==>>" , username , password) ;
+            console.log("i am in check 1");
+            
 
         if (!this.siteChecked || this.isBrowserSSO) {
             // Site wasn't checked (it failed) or a previous check determined it was SSO. Let's check again.
             this.checkSite(siteUrl).then(() => {
                 if (!this.isBrowserSSO) {
+                    console.log("i am in check 1");
                     // Site doesn't use browser SSO, throw app's login again.
                     return this.login();
+                    
                 }
             });
 
@@ -206,17 +212,20 @@ export class CoreLoginCredentialsPage {
         }
 
         if (!username) {
+            console.log("i am in check 2");
             this.domUtils.showErrorModal('core.login.usernamerequired', true);
 
             return;
         }
         if (!password) {
+            console.log("i am in check 2");
             this.domUtils.showErrorModal('core.login.passwordrequired', true);
 
             return;
         }
 
         if (!this.appProvider.isOnline()) {
+            console.log("i am in check 3");
             this.domUtils.showErrorModal('core.networkerrormsg', true);
 
             return;
@@ -226,22 +235,26 @@ export class CoreLoginCredentialsPage {
 
         // Start the authentication process.
         this.sitesProvider.getUserToken(siteUrl, username, password).then((data) => {
+            console.log("i am in check 4");
             return this.sitesProvider.newSite(data.siteUrl, data.token, data.privateToken).then((id) => {
                 // Reset fields so the data is not in the view anymore.
                 this.credForm.controls['username'].reset();
                 this.credForm.controls['password'].reset();
 
                 this.siteId = id;
+                console.log("Site id " , this.siteId);
 
                 return this.loginHelper.goToSiteInitialPage(undefined, undefined, undefined, undefined, this.urlToOpen);
             });
         }).catch((error) => {
             this.loginHelper.treatUserTokenError(siteUrl, error, username, password);
             if (error.loggedout) {
+                console.log("i am in check 5");
                 this.navCtrl.setRoot('CoreLoginSitesPage');
             }
         }).finally(() => {
             modal.dismiss();
+            console.log("i am in check 6");
         });
     }
 

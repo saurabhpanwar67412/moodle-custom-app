@@ -27,6 +27,7 @@ import { CoreLoginHelperProvider } from '@core/login/providers/helper';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { CoreLoginSitesPage } from '@core/login/pages/sites/sites';
+import { CoreLoginCredentialsPage } from '@core/login/pages/credentials/credentials';
 
 @Component({
     templateUrl: 'app.html'
@@ -34,7 +35,7 @@ import { CoreLoginSitesPage } from '@core/login/pages/sites/sites';
 export class MoodleMobileApp implements OnInit {
     // Use page name (string) because the page is lazy loaded (Ionic feature). That way we can load pages without importing them.
     // The downside is that each page needs to implement a ngModule.
-    rootPage: any = 'CoreLoginInitPage';
+    rootPage: any = 'CoreLoginCredentialsPage';
     protected logger;
     protected lastUrls = {};
     protected lastInAppUrl: string;
