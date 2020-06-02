@@ -2,7 +2,7 @@
 <widget id="in.co.escorts.estar" version="3.5.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Estar</name>
     <description>Official Moodle Mobile app</description>
-     <author email="juan@moodle.com" href="http://moodle.com">Juan Leyva</author>
+    <author email="juan@moodle.com" href="http://moodle.com">Juan Leyva</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

@@ -74,7 +74,7 @@ export class CoreLoginInitPage {
             // If we hide the splash screen now, the init view is still seen for an instant. Wait a bit to make sure it isn't seen.
             setTimeout(() => {
                 this.splashScreen.hide();
-            }, 100);
+            }, 3000);
         });
     }
 
