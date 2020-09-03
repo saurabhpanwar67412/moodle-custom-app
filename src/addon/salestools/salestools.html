@@ -1,0 +1,33 @@
+<!--
+  Generated template for the SalestoolsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+   <img src="assets/img/escorts-academy.png" class="core-header-logo" [alt]="Escorts" style="height: 30px;margin-top: 40px;position: fixed;left: 47px;top: -25px;" >
+    <ion-title>  <p style="text-align: center;position: fixed;top: -31px;left: 70px;">Sales tools </p></ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+ <ion-content padding="true" mm-state-class>
+
+        <div class="card" style="background-color: white;" >
+      
+            <div   class="item  item-icon-right" *ngFor=" let course of sales_tools"  style="padding-left: 15px;border-bottom: 1px solid;height: 50px;">
+    <a  title="COurse " (click)="test(course.id,course.fullname,course.shortname,course.fullname,course.idnumber,course.visible,course.summary,course.summaryformat,course.format,course.showgrades,course.lang,course.enablecompletion,course.category,course.startdate)"> 
+                    <p class="fullname">{{course.fullname}}   <ion-icon  name="arrow-forward" style="position: absolute;right: 28px;font-size: 22px;"></ion-icon> </p>
+     </a>
+            </div>
+            
+        </div>
+        <div *ngIf="sales_tools?.length == 0" >
+             <p id="salestoolmessage">Currently, You don't have any enrolled course in sales tool. Please contact academic team for more information. </p>
+            </div>
+     
+    </ion-content>
+
+
+

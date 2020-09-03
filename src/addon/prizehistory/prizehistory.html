@@ -1,0 +1,116 @@
+<!--
+  Generated template for the PrizehistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+		  <ion-buttons left>
+		<button ion-button navPop icon-only>
+
+		</button>
+	</ion-buttons>
+     <img src="assets/img/escorts-academy.png" class="core-header-logo" [alt]="Escorts" style="height: 30px;margin-top: 40px;position: fixed;left: 47px;top: -25px;" >
+    <ion-title>  <p style="text-align: center;position: fixed;top: -31px;left: 70px;">Prize</p></ion-title>
+
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-content padding="true" mm-state-class>
+
+        <!--<div class="card item" ng-if="!history.comp_redeem_history.length">
+            <a class="item item-icon-right">
+                    {{ 'mma.prizes.certificateprize' | translate }}
+            </a>
+
+        </div>-->
+        <div class="card">
+            <a class="item item-icon-right">
+              <h2  id="heading">     Certificate Prize </h2>
+            </a>
+            <div *ngFor="let redeem of history.comp_redeem_history">
+            <table class="table table-striped" *ngIf="history.comp_redeem_history?.length > 0 &&  history.status === 200">
+                <tr>
+                    <th>
+                        <div class="row">
+                            <div class="col col-50">Prizes</div>
+                            <div class="col col-30">Prizes date</div>
+                            <div class="col col-10"></div>
+                        </div>
+                    </th>
+                </tr>
+                <tr >
+                    <td>
+                        <div class="row">
+                            <div class="col col-50">{{redeem.rewardname}}</div>
+                            <div class="col col-30">{{redeem.timeredeemed | date :'dd/MM/yyyy'}}</div>
+                            <div class="col col-10" (click)="getRewardtype(redeem.rewardid, 'site.prizes-rewardissues')">
+                                <span title="prizes" style="max-width: 25%;position: absolute;right: 1px;"><img src="assets/img/prizes/Raise Issue.png" alt="" class="drop-down"  /></span>
+                            </div>
+                        </div>
+                        <div class="row reStatus">
+                            <div>{{'prizes' + redeem.rewardstatus }}</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <table class="table table-striped" *ngIf="!history.comp_redeem_history?.length > 0|| history.status !== 200">
+                <tr>
+                    <th>
+                        <div class="row">
+                       <h3>    No reward redeemed by you </h3>
+                        </div>
+                    </th>
+                </tr>
+            </table>
+        </div>
+<br><br>
+        <div class="card">
+            <!-- ng-if="history.redeem_history.length"> -->
+            <a class="item item-icon-right">
+             <h2 id="heading">     Learning Prize </h2>
+                    </a>
+            <table class="table table-striped" *ngIf="history.redeem_history.length && history.status === 200">
+                <tr>
+                    <th>
+                        <div class="row">
+                            <div class="col col-40">Prizes</div>
+                            <div class="col col-20">Spent Coins</div>
+                            <div class="col col-30"> Date</div>
+                            <div class="col col-10"></div>
+                        </div>
+                    </th>
+                </tr> 
+                <br><br>
+                <tr *ngFor="let redeem of history.redeem_history">
+                    <td>
+                        <div class="row">
+                            <div class="col col-40">{{redeem.rewardname}}</div>
+                            <div class="col col-20">{{redeem.rewardcoins}}</div>
+                            <div> <span>{{redeem.timeredeemed  }} </span> </div>
+                            <div class="col col-10">
+                                <span title="Prizes" style="max-width: 25%;position: absolute;right: 1px;"><img src="assets/img/prizes/Raise Issue.png" alt="" class="drop-down" (click)="getRewardtype(redeem.rewardid, 'site.prizes-rewardissues')"/></span>
+                            </div>
+                        </div> <br>
+                        <div class="row reStatus">
+                            <div> <h4 id="Rewardshead">Reward Status </h4></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class="table table-striped" *ngIf="!history.redeem_history.length || history.status !== 200">
+                <tr>
+                    <th>
+                        <div class="row">
+                         No reward redeemed by you
+                        </div>
+                    </th>
+                </tr>
+            </table>
+        </div>
+
+</ion-content>

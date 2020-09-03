@@ -1,0 +1,13 @@
+<ion-header>
+    <ion-navbar core-back-button>
+     <img src="assets/img/escorts-academy.png" class="core-header-logo" [alt]="Escorts" style="height: 30px;padding-bottom: px;margin-top: 39px;position: fixed;left: 47px;top: -25px;" >
+ <ion-title>  <p style="text-align: center;position: fixed;top: -31px;left: 70px;">{{ 'core.sitehome.sitehome' | translate }}</p></ion-title>
+
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-refresher [enabled]="siteHomeComponent && siteHomeComponent.dataLoaded" (ionRefresh)="siteHomeComponent.doRefresh($event)">
+        <ion-refresher-content pullingText="{{ 'core.pulltorefresh' | translate }}"></ion-refresher-content>
+    </ion-refresher>
+    <core-sitehome-index></core-sitehome-index>
+</ion-content>

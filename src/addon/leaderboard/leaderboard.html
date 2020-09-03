@@ -1,0 +1,1091 @@
+
+<ion-header>
+<ion-toolbar>
+<ion-buttons left>
+		<button ion-button navPop icon-only>
+			<ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+		</button>
+	</ion-buttons>
+    <img src="assets/img/escorts-academy.png" class="core-header-logo" [alt]="Escorts" style="height: 30px;margin-top: 40px;position: fixed;left: 47px;top: -25px;" >
+    <ion-title>  <p style="text-align: center;position: fixed;top: -31px;left: 90px;">LeaderBoard</p></ion-title>
+
+</ion-toolbar>
+</ion-header>
+   <!--   <ion-nav-title>
+      <mm-format-text watch="true"></mm-format-text> 
+    </ion-nav-title> -->
+  <!--  <ion-content mm-state-class>--> 
+  <ion-content padding >
+
+  <ion-segment [(ngModel)]="segment">
+    
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+    <ion-segment-button value="regional">
+      Regional
+    </ion-segment-button>
+    <ion-segment-button value="subRegional">
+    SubRegional
+    </ion-segment-button>
+
+  </ion-segment>
+
+<div [ngSwitch]="segment">
+    <ion-card *ngSwitchCase="'national'">
+   
+      <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+        
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card *ngSwitchCase="'regional'">
+     
+      <ion-card-content>
+  <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                        <tr *ngFor="let lb of leaderboard.regional.allranks">
+                        <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                  Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Regional Rank</th>
+                            <th>Full name</th>
+                            <th>Points</th>
+                            <th>Your Rank</th>
+                        </tr>
+                        <tr>
+                      <td>{{leaderboard.regional.userrank.Regrank}}</td>
+                            <td>{{leaderboard.regional.userrank.firstname}}</td>
+                            <td>{{leaderboard.regional.userrank.points}}</td>
+                            <td>{{leaderboard.regional.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngSwitchCase="'subRegional'">
+     
+      <ion-card-content>
+      <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Full name</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                        <tr *ngFor="let lb of leaderboard.subregional.allranks">
+                         <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                  Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Subregional Rank</th>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                 <th>{{leaderboard.subregional.userrank.Regrank}}</th>
+                            <td>{{leaderboard.subregional.userrank.firstname}}</td>
+                            <td>{{leaderboard.subregional.userrank.points}}</td>
+                            <td>{{leaderboard.subregional.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!--starting -->
+<!-- RBM -->
+  <div *ngIf="leaderboard.usertype.usertype == 'RBM' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  <!--starting -->
+<!--  Dealer-->
+  <div *ngIf="leaderboard.usertype.usertype == 'Dealer' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!-- DGM-->
+  <div *ngIf="leaderboard.usertype.usertype == 'DGM' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!-- Manager Demand Generation, -->
+  <div *ngIf="leaderboard.usertype.usertype == 'Manager Demand Generation' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  DD-->
+  <div *ngIf="leaderboard.usertype.usertype == 'DD' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  DD Executive (DDE)-->
+  <div *ngIf="leaderboard.usertype.usertype == 'DD Executive (DDE)' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  Regional DD Manager-->
+  <div *ngIf="leaderboard.usertype.usertype == 'Regional DD Manager' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  RSM -->
+  <div *ngIf="leaderboard.usertype.usertype == 'RSM' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  Dealer VIP-->
+  <div *ngIf="leaderboard.usertype.usertype == 'Dealer VIP' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--Sales Manager-->
+  <div *ngIf="leaderboard.usertype.usertype == 'Sales Manager' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  Branch Manager-->
+  <div *ngIf="leaderboard.usertype.usertype == 'Branch Manager' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  Manager -->
+  <div *ngIf="leaderboard.usertype.usertype == 'Manager' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--   Sales Chief-->
+  <div *ngIf="leaderboard.usertype.usertype == 'Sales Chief' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  SC -->
+  <div *ngIf="leaderboard.usertype.usertype == 'SC' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--   ETDC -->
+  <div *ngIf="leaderboard.usertype.usertype == 'ETDC' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--   Service-->
+  <div *ngIf="leaderboard.usertype.usertype == 'Service' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!--  Executive-->
+  <div *ngIf="leaderboard.usertype.usertype == 'Executive' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+  <!--starting -->
+<!-- ZingHR-Executive-->
+  <div *ngIf="leaderboard.usertype.usertype == 'ZingHR-Executive' ">
+  <ion-segment [(ngModel)]="segment">
+    <ion-segment-button value="national">
+        National
+    </ion-segment-button>
+      </ion-segment>
+       <ion-card-content>
+   <div class="card">
+                    <table class="table table-striped">
+                        <tr>
+                             <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Rank</th>
+                        </tr>
+                    
+                        <tr *ngFor="let lb of leaderboard.national.allranks">
+                       
+                     <td>{{lb.firstname}}</td>
+                            <td>{{lb.points}}</td>
+                            <td>{{lb.rank}}</td> 
+                        </tr>
+               
+                    </table>
+                </div>
+                <div class="card">
+                    <a class="item item-icon-right">
+                    Your Rank
+            </a>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Points</th>
+                            <th>Your rank</th>
+                        </tr>
+                        <tr>
+                       <td>{{leaderboard.national.userrank.firstname}}</td>
+                            <td>{{leaderboard.national.userrank.points}}</td>
+                            <td>{{leaderboard.national.userrank.rank}}</td> 
+                        </tr>
+                    </table>
+                </div>
+    
+        
+      </ion-card-content>
+ 
+      
+  
+</div>
+  <!-- finished -->
+  
+    </ion-content>

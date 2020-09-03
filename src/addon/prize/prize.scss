@@ -1,0 +1,431 @@
+$img-max-width-height: 40px;
+$card-background-color: #eeeeee;
+$line-height-computed: 30px;
+$table-cell-padding: 5px;
+$line-height-base: 25px;
+$table-border-color: #444;
+$body-bg: #ccc;
+$font-colorTd: #5d5d5d;
+$font-colorTh: #232323;
+$table-bg-accent: #f0f0f0;
+$text-color-blue: #1b4ba0;
+$background-color-white: #ffffff;
+$text-save-color: #5bc22a;
+$text-cancel-color: orange;
+$text-red: #ff0000;
+
+.item-avatar {
+    border-width: 0;
+    padding-left: 90px;
+    padding-top: 10px;
+    padding-right: 10px;
+    img.user {
+        max-width: 70px;
+        max-height: 70px;
+        left: 10px;
+        top: 10px;
+    }
+    img.user-badge {
+        max-width: 30px;
+        max-height: 30px;
+        left: 60px;
+        top: 60px;
+        border: 3px solid #fff;
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+    }
+    h2 {
+        padding-top: 5px;
+    }
+    .rank {
+        color: $text-color-blue;
+        ;
+        padding-left: 5px;
+    }
+    .name {
+        padding-bottom: 10px;
+        padding-top: 5px;
+    }
+    .line {
+        color: $card-background-color;
+    }
+    p {
+        white-space: normal;
+        padding-right: 20%;
+    }
+}
+
+.giftImage {
+    padding-right: 50px;
+}
+.item-divider {
+    background-color: $background-color-white;
+    border-left: 3px solid $color-1b4ba0;
+    padding: 16px;
+    span {
+        float: right;
+        color: $text-save-color;
+        font-size: 20px;
+    }
+}
+.list-content {
+    color: #555555;
+    padding-bottom: 0px;
+    padding-top: 5px;
+    p {
+        padding-top: 5px;
+    }
+    .item-avatar-right {
+        img:first-child {
+            float: right;
+            top: 16px;
+            right: 8px;
+            max-width: $img-max-width-height;
+            max-height: $img-max-width-height;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
+}
+.disabled-data {
+    p {
+        color: #b4b4b4;
+    }
+}
+.M_S_Silver {
+    img {
+        max-height: 50px;
+    }
+    img:first-child {
+        max-height: 50px;
+    }
+}
+.CSItem {
+    padding-right: 10px;
+    h2 {
+        font-weight: bold;
+        span {
+            color: $text-save-color;
+            float: right;
+        }
+    }
+    .require {
+        color: $text-red;
+    }
+}
+.card {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    box-shadow: none;
+    background-color: $card-background-color;
+   
+
+   
+    
+    
+   
+}
+.prizes {
+    
+ 
+    .redeeme {
+        span.item {
+            font-weight: bold;
+            border-top: 0;
+            padding-bottom: 10;
+            padding-top: 10px;
+        }
+        .item {
+            padding-bottom: 5px;
+            padding-top: 0;
+            border-top: 0;
+            p {
+                color: $text-cancel-color;
+                position: relative;
+                top: -5px;
+            }
+        }
+    }
+    .estar-arrow-right:before {
+        color: $color-1b4ba0;
+        font-weight: bold;
+    }
+}
+
+.redeem_history {
+    .table {
+        width: 100%;
+        max-width: 100%;
+        color: $font-colorTd;
+        border: 10px solid #fff;
+        box-sizing: border-box;
+        background-color: #fff;
+        >thead,
+        >tbody,
+        >tfoot {
+            >tr {
+                >th {
+                    padding: $table-cell-padding;
+                    line-height: $line-height-base;
+                    vertical-align: top;
+                    border-top: 0px solid $table-border-color;
+                    text-align: left;
+                    color: $font-colorTh;
+                    font-size: 14px;
+                    .row {
+                        padding: 0;
+                    }
+                }
+                >td {
+                    padding: $table-cell-padding;
+                    line-height: $line-height-base;
+                    vertical-align: top;
+                    border-top: 0px solid $table-border-color;
+                    .row {
+                        padding: 0;
+                    }
+                }
+            }
+        } // Bottom align for column headings
+        >thead>tr>th {
+            vertical-align: bottom;
+            border-bottom: 2px solid $table-border-color;
+        } // Remove top border from thead by default
+        >caption+thead,
+        >colgroup+thead,
+        >thead:first-child {
+            >tr:first-child {
+                >th,
+                >td {
+                    border-top: 0;
+                }
+            }
+        } // Account for multiple tbody instances
+        >tbody+tbody {
+            border-top: 0px solid $table-border-color;
+        } // Nesting
+        .table {
+            background-color: $body-bg;
+        }
+    }
+    // .table-striped tbody tr:nth-child(even) {
+    //     background: $table-bg-accent;
+    // }
+    .table-striped tbody tr:nth-child(even) {
+        background: $table-bg-accent;
+    }
+    .reStatus {
+        color: $text-color-blue;
+        div {
+            padding: 5px;
+        }
+    }
+    .drop-down {
+        height: 20px;
+        width: 20px;
+    }
+}
+
+.reward_issues {
+    .table {
+        width: 100%;
+        max-width: 100%;
+        color: $font-colorTd;
+        border: 10px solid #fff;
+        box-sizing: border-box;
+        background-color: #fff;
+        >thead,
+        >tbody,
+        >tfoot {
+            >tr {
+                >th {
+                    padding: $table-cell-padding;
+                    line-height: $line-height-base;
+                    vertical-align: top;
+                    border-top: 0px solid $table-border-color;
+                    text-align: left;
+                    color: $font-colorTh;
+                    font-size: 14px;
+                    .row {
+                        padding: 0;
+                    }
+                }
+                >td {
+                    padding: $table-cell-padding;
+                    line-height: $line-height-base;
+                    vertical-align: top;
+                    border-top: 0px solid $table-border-color;
+                    .row {
+                        padding: 0;
+                    }
+                }
+            }
+        } // Bottom align for column headings
+        >thead>tr>th {
+            vertical-align: bottom;
+            border-bottom: 2px solid $table-border-color;
+        } // Remove top border from thead by default
+        >caption+thead,
+        >colgroup+thead,
+        >thead:first-child {
+            >tr:first-child {
+                >th,
+                >td {
+                    border-top: 0;
+                }
+            }
+        } // Account for multiple tbody instances
+        >tbody+tbody {
+            border-top: 0px solid $table-border-color;
+        } // Nesting
+        .table {
+            background-color: $body-bg;
+        }
+    }
+    // .table-striped tbody tr:nth-child(even) {
+    //     background: $table-bg-accent;
+    // }
+    .table-striped tbody tr:nth-child(even) {
+        background: $table-bg-accent;
+    }
+    .item,
+    .item-content {
+        white-space: normal;
+    }
+    .issue {
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .checkbox {
+        background-color: transparent;
+    }
+    .table-button {
+        background-color: $background-color-white;
+        text-align: center;
+        .button {
+            margin-left: 20px;
+            min-height: 0px;
+            line-height: 30px;
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+    }
+    .checkbox input:checked:before,
+    .checkbox input:checked+.checkbox-icon:before {
+        background: transparent;
+        border-color: #5d5d5d;
+    }
+    .checkbox input:before,
+    .checkbox .checkbox-icon:before {
+        border-color: #5d5d5d;
+    }
+    .checkbox input:after,
+    .checkbox-icon:after {
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 33%;
+        left: 25%;
+        display: table;
+        width: 14px;
+        height: 6px;
+        border: 2px solid #5d5d5d;
+        border-top: 0;
+        border-right: 0;
+        content: ' ';
+        opacity: 0;
+    }
+}
+
+.button-cancel,
+.button-cancel:hover,
+.button-cancel:visited,
+.button-cancel:active {
+    border-color: $text-cancel-color;
+    color: $text-cancel-color;
+    background-color: $background-color-white;
+}
+
+.button-save,
+.button-save:hover,
+.button-save:visited,
+.button-save:active {
+    border-color: $text-save-color;
+    color: $text-save-color;
+    background-color: $background-color-white;
+}
+
+.button-popup {
+    margin: 0px 50px;
+}
+
+.popup-head {
+    border-bottom: none;
+    padding: 0px;
+}
+
+.popup-container .popup {
+    background-color: $background-color-white;
+}
+
+.prize-popup {
+    text-align: center;
+    img {
+        width: 60px;
+        height: auto;
+    }
+    h2 {
+        color: $text-color-blue;
+        margin-top: 0px;
+    }
+    p {
+        padding: 0px 30px;
+        .rewardname {
+            color: $text-cancel-color;
+        }
+        .rewardcoins {
+            color: $text-save-color;
+        }
+    }
+}
+
+.prize-popupdata {
+    text-align: center;
+    img {
+        max-width: 100%;
+    }
+    h2 {
+        margin-top: 0px;
+        color: $text-cancel-color;
+    }
+    h3 {
+        color: $text-color-blue;
+        margin-bottom: 20px;
+    }
+    p {
+        margin: 0 0 5px;
+        span {
+            color: $text-save-color;
+        }
+    }
+}
+
+.popup-container .popup {
+    width: 300px;
+}
+
+// .item,
+// .item-content {
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     white-space: normal;
+// }
+.ion-ios-customprizes,
+.ion-md-customprizes {
+    content: url("../img/prizes/prizes.png");
+    width: 26px;
+    height: 40px !important;
+    padding: 10px 0px 2px;
+    opacity: 0.6;
+}

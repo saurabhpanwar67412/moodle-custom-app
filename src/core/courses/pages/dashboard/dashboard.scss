@@ -1,0 +1,631 @@
+$core-dashboard-logo: false !default;
+
+ion-app.app-root page-core-courses-dashboard {
+    @if $core-dashboard-logo {
+        .toolbar-title-md .core-header-logo {
+            max-height: $toolbar-md-height - 24;
+        }
+
+        .toolbar-title-ios .core-header-logo {
+            max-height: $toolbar-ios-height - 24;
+        }
+
+        .toolbar-title core-format-text {
+            display: none;
+        }
+    } @else {
+        .toolbar-title .core-header-logo {
+             display: none;
+        }
+    }
+
+    ion-badge.core-course-download-courses-progress {
+        display: block;
+        @include float(start);
+        @include margin(12px, 12px, null, 12px);
+    }
+}
+
+$line-height-computed: 30px;
+$table-cell-padding: 5px;
+$line-height-base: 25px;
+$table-border-color: #444;
+$body-bg: #ccc;
+$color-5bc22a: #5bc22a;
+$color-1b4ba0: #1b4ba0;
+$font-colorTd: #5d5d5d;
+$font-colorTh: #232323;
+$font-000000: #000000;
+$font-666666: #666666;
+$table-bg-accent: #f0f0f0;
+$table-bg-section: #ffffff;
+$section-border: #ccc;
+$color-fd8024: #fd8024;
+a {
+    text-decoration: none;
+}
+.blackContent {
+    color: $font-666666;
+    // color: black;
+}
+.target-value{
+    position: absolute;
+    right: 19px;
+    font-size: 17px;
+
+}
+.target-message{
+    color : #666;
+    font-size: 14px;
+    font-weight: 400;
+}
+.blueContent {
+    color: $color-1b4ba0;
+}
+.grayContent {
+    color: $section-border;
+
+}
+h2{
+    font-weight: 400;
+}
+.coins {
+    max-width: 70px;
+    position: absolute;
+    top: 30px;
+    right: 3px;
+    img {
+        max-width: 60px;
+        position: relative;
+        left: 0px;
+        top: 0px
+    }
+    span {
+        font-size: 12px;
+        padding: 2px;
+    }
+    span.coins-pot {
+        max-width: 60px;
+        height: 60px;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        display: block;
+        text-align: center;
+        line-height: 36px;
+        color: $color-fd8024;
+        font-size: 14px;
+        font-weight: bold;
+        background: url("../assets/img/dash/coins.png") no-repeat top center/cover;
+    }
+}
+.estar-arrow-right:before {
+    color: $color-1b4ba0;
+    font-weight: bold;
+}
+.marginBtm {
+    margin-bottom: 0;
+}
+.marginTop {
+    margin-top: 0;
+}
+.salestools {
+    background-color: #b7bbc3;
+}
+
+.borderLR {
+    border-left: 1px solid $section-border;
+    border-right: 1px solid $section-border;
+    box-sizing: border-box;
+    padding-right: 30px;
+    height : 57px;
+    margin-left: 6px !important;
+    
+}
+.coins_rs {
+    position: absolute;
+    top: 30px;
+    right: 18px;
+    color: #fff;
+    font-size: 12px;
+}
+
+.rank {
+    color: $color-1b4ba0;
+}
+.card {
+    background-color: $table-bg-section;
+}
+p {
+    color: $section-border;
+    margin-bottom: 0px;
+}
+
+.coins {
+    max-width: 70px;
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    img {
+        max-width: 60px;
+        position: relative;
+        left: 0px;
+        top: 0px
+    }
+    span {
+        font-size: 12px;
+        padding-right: 5px;
+    }
+   
+}
+.text{
+
+
+  margin-top: 2px;
+
+
+}
+.username{
+
+    font-size: 17px;
+}
+.user-data{
+    width: 200px;
+    margin-left: 89px;
+    margin-top: -84px;
+    margin-bottom: 14px;
+
+}
+.borderBTM {
+    border-bottom: 1px solid $section-border;
+    .col {
+        padding: 0px;
+    }
+}
+h3 {
+    color: $font-colorTd;
+    padding: 10px 0px;
+    border-left: 0;
+    border-bottom: 1px solid $body-bg;
+    font-weight: bold;
+    font-size: 15px;
+}
+.item-note{
+
+    position: absolute;
+    right:  23px;
+}
+.custome-progress {
+    width: 100%;
+    display: block;
+    background: url("../assets/img/dash/Escorts_BG.png") no-repeat top center/cover;
+    text-align: center;
+    img {
+        width: 50%;
+    }
+}
+.score {
+    color: $color-5bc22a;
+    font-size: 20px;
+    font-weight: bold;
+}
+.custom-prograss {
+    height: 5px;
+    margin: 0;
+    padding: 0;
+    background-color: #d7d7d7;
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    top: 28px;
+    z-index: 1;
+    div {
+        height: 5px;
+        margin: 0;
+        padding: 0;
+        background-color: $color-5bc22a;
+        border-radius: 5px;
+        margin-top: -2px;
+    }
+}
+.borderBTMtlr {
+    border-bottom: 1px solid $section-border;
+    border-left: 0px solid $section-border;
+    border-top: 0px solid $section-border;
+    border-right: 0px solid $section-border;
+}
+.border {
+    border: 0;
+}
+.row+.row {
+    margin-top: 0;
+    padding: 0;
+
+}
+img.user-badge {
+    max-width: 38px;
+    max-height: 38px;
+    left: 60px;
+    top: 55px;
+    border: 3px solid #fff;
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+
+}
+img.user {
+    max-width: 75px;
+    max-height: 75px;
+    left: 0;
+    top: 0;
+    border-radius: 47px;
+}
+.item-avatar {
+    border-width: 0;
+    padding-left: 15px;
+    padding-top: 2px;
+    padding-right: 70px;
+    font-size : 19px;
+
+ 
+ 
+}
+// hr {
+//     border : solid #ccc;
+//   }
+.points{
+    padding: 0px 0 5px;
+    font-weight: 400;
+    font-size: 15px;
+    color: #666666;
+    margin-top: -3px;
+}
+.level{
+    width: 150px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #4c4a4a;
+    margin-top: -2px;
+    margin-right: 9px;
+    width: 200px;
+ 
+}
+#gold {
+    position: absolute;
+    left: 75px;
+
+
+}
+#goldp { 
+
+    margin-top: 61px;
+    margin-left: 74px;
+
+
+  
+}
+#silverp { 
+
+    margin-top: 8px;
+}
+#diamondp { 
+    position: absolute;
+    right: 6px;
+    margin-top: 60px;
+}
+#diamond {
+    position: absolute;
+    right: 6px;
+
+}
+.lsize{
+    text-align: center;
+    font-size: 15px !important;
+    font-size: 17px;
+    font-weight: 500;
+    color: #4c4a4a;
+    margin-top: -2px;
+    margin-right: 9px;
+
+}
+img.silver {
+    margin-left: 10px;
+}
+img.daimond {
+    margin-right: 10px;
+}
+img.imageWidth {
+    width: 40px;
+    padding-bottom: 0px;
+}
+p {
+    padding: 0px 0 5px;
+
+    font-weight: 450;
+   
+}
+p.select {
+    // border-bottom: 3px solid $color-1b4ba0;
+}
+
+.leaderboard{
+    width: 127px;
+}
+
+
+section {
+    background-color: $table-bg-section;
+    margin-bottom: 7px;
+    margin-left: 6px;
+    margin-top: 6px;
+    margin-right: 6px;
+
+    .item-note{
+        text-align: right;
+
+    }
+ 
+    .row {
+        .list {
+          
+        }
+        .col-33 {
+            margin: 5px 0;
+            a {
+                display: block;
+                text-decoration: none;
+                padding-left: 30px;
+                img {
+                    height: 30px;
+                }
+               
+            }
+        }
+       
+    }
+
+    .section h3 span{
+        text-align: right !important;
+        
+
+    }
+    .progress-badge {
+        padding: 5px 5px 0px 5px;
+        position: relative;
+        border-bottom: 1px solid $body-bg;
+        .col-33 {
+            margin-bottom: 0;
+            z-index: 2;
+            img {
+                width: 30px;
+                padding-bottom: 10px;
+            }
+            
+        }
+   
+    }
+
+    .leaderboardicon1{
+        margin-left: 20px;
+        
+    }
+    .leaderboardicon2{
+        margin-left: 9px;
+        
+    }
+    .leaderboardicon3{
+        margin-left: 15px;
+        
+    }
+    h3 {
+        border-left: 3px solid $color-1b4ba0;
+        padding: 5px;
+        color: $color-1b4ba0;
+        font-weight: 500;
+        border-bottom: 0px transparent;
+        span {
+            text-align: right;
+            color: $color-1b4ba0;
+        }
+    }
+   
+   
+    .custom-item {
+        border-bottom: 0px solid $section-border;
+        padding: 5px 15px;
+        img {
+            width: 60%;
+        }
+       
+        .target {
+            .display_level {
+                padding: 10px 0px;
+                font-weight: bold;
+                color: $font-colorTd;
+                margin-top: 10px;
+                border-bottom: 1px solid $body-bg;
+              
+                
+            }
+           
+        
+            .row {
+                padding: 0;
+                height: 25px;
+                .col-20 {
+                    p {
+                        font-weight: bold;
+                        color: $color-1b4ba0;
+                    }
+                }
+            }
+        }
+       
+    
+        
+    }
+   
+   
+}
+.targetlevel {
+    margin-left: 6px;
+    // border-left: 1px solid $body-bg;
+    // padding-left: 13px;
+}
+h3.enddate {
+    color: $font-colorTd;
+    padding: 10px 0px;
+    margin-top: 10px;
+    border-left: 0;
+    border-bottom: 0;
+    border-top: 1px solid $body-bg;
+    font-weight: 400;
+    span {
+        color: $color-fd8024;
+    }
+}
+.card {
+    padding-top: 1px;
+    overflow: hidden;
+    border-radius: 2px;
+    padding-bottom: 0px;
+    box-shadow: none;
+    background-color: transparent;
+}
+.currentlevel {
+    text-align: left;
+}
+.table {
+    width: 100%;
+    max-width: 100%;
+    color: $font-colorTd;
+    border: 10px solid #fff;
+    box-sizing: border-box;
+    background-color: #fff;
+    >thead,
+    >tbody,
+    >tfoot {
+        >tr {
+            >th {
+                padding: $table-cell-padding;
+                line-height: $line-height-base;
+                vertical-align: top;
+                border-top: 0px solid $table-border-color;
+                text-align: left;
+                color: $font-colorTh;
+                font-size: 14px;
+                .row {
+                    padding: 0;
+                    height: 25px;
+                }
+            }
+            >td {
+                padding: $table-cell-padding;
+                line-height: $line-height-base;
+                vertical-align: top;
+                border-top: 0px solid $table-border-color;
+                .row {
+                    padding: 0;
+                }
+            }
+        }
+    } // Bottom align for column headings
+    >thead>tr>th {
+        vertical-align: bottom;
+        border-bottom: 2px solid $table-border-color;
+    } // Remove top border from thead by default
+    >caption+thead,
+    >colgroup+thead,
+    >thead:first-child {
+        >tr:first-child {
+            >th,
+            >td {
+                border-top: 0;
+            }
+        }
+    } // Account for multiple tbody instances
+    >tbody+tbody {
+        border-top: 0px solid $table-border-color;
+    } // Nesting
+    .table {
+        background-color: $body-bg;
+    }
+}
+.table-striped tbody tr:nth-child(even) {
+    background: $table-bg-accent;
+}
+#salestool{
+    background-color: #b7bbc3;
+    height: 30px;
+    border: 1px solid;
+}
+#salestoolp{
+    color: currentColor;
+    margin-top: 2px;
+
+}
+@media (max-width: 360px) and (max-height:640px) {
+    .borderLR  {
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding-right: 25px;
+        height: 57px;
+        margin-left: 6px !important;
+    }
+}
+@media (max-width: 360px) and (max-height:640px) {
+    .leaderboard { 
+        width: 122px !important;
+
+    }
+}
+
+@media (max-width: 411px) and (max-height:731) {
+    .borderLR  {
+        border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-right: 26px;
+    padding-left: 13px;
+    height: 57px;
+    margin-left: 28px !important;
+    }
+}
+@media (max-width: 411px) and (max-height:731) {
+
+    .leaderboard { 
+
+        padding-left: 3px;
+        width: 140px;
+
+    }
+}
+@media (max-width: 411px) and (max-height:731) {
+
+    #gold { 
+        position: absolute;
+         left: 85px;
+    }
+}
+@media (max-width: 411px) and (max-height:731) {
+
+    #goldp {
+        margin-top: 61px;
+        margin-left: 85px;
+    }
+}
+
+
+
+
+.ion-ios-customicon,
+.ion-md-customicon {
+    content: url("../assets/img/dash/home.png");
+    width: 32px;
+    height: 32px;
+    padding: 10px 0px 2px;
+    opacity: 0.6;
+}

@@ -1,0 +1,1875 @@
+<ion-header>
+    <ion-navbar core-back-button>
+    <img src="assets/img/escorts-academy.png" class="core-header-logo" [alt]="Escorts" style="height: 30px;padding-bottom: px;margin-top: 39px;position: fixed;left: 7px;top: -25px;" >
+ <ion-title>  <p style="text-align: center;position: fixed;top: -32px;left: 150px;">Escorts </p></ion-title>
+
+      <!--     <ion-title>
+            <core-format-text [text]="siteName" contextLevel="system" [contextInstanceId]="0"><p style="text-align: center; position: fixed;top: -31px;left: 70px;"> </p> </core-format-text>
+        </ion-title> -->
+     
+
+        <ion-buttons end>
+            <button *ngIf="searchEnabled" ion-button icon-only (click)="openSearch()" [attr.aria-label]="'core.courses.searchcourses' | translate">
+                <ion-icon name="search"></ion-icon>
+            </button>
+            <core-context-menu>
+                <!-- Action for dashboard and site home. -->
+                <core-context-menu-item *ngIf="(siteHomeEnabled || dashboardEnabled) && (downloadCourseEnabled || downloadCoursesEnabled)" [priority]="1000" [content]="'core.settings.showdownloadoptions' | translate" (action)="toggleDownload()" [iconAction]="downloadEnabledIcon"></core-context-menu-item>
+
+                <!-- Actions when both site home and dashboard are disabled. -->
+                <core-context-menu-item *ngIf="!siteHomeEnabled && !dashboardEnabled && mcComponent && mcComponent.downloadAllCoursesEnabled && mcComponent.courses && mcComponent.courses.length >= 2" [priority]="800" [content]="'core.courses.downloadcourses' | translate" (action)="mcComponent.prefetchCourses()" [iconAction]="mcComponent.prefetchCoursesData.icon" [closeOnClick]="false" [badge]="mcComponent.prefetchCoursesData.badge"></core-context-menu-item>
+                <core-context-menu-item *ngIf="!siteHomeEnabled && !dashboardEnabled && mcComponent && mcComponent.courses && mcComponent.courses.length > 5" [priority]="700" [content]="'core.courses.filtermycourses' | translate" (action)="mcComponent.switchFilter()" [iconAction]="'funnel'"></core-context-menu-item>
+            </core-context-menu>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+  
+    <core-tabs [selectedIndex]="firstSelectedTab" [hideUntil]="tabsReady">
+        <!-- Site home tab. -->
+        <core-tab [show]="siteHomeEnabled" [title]="'core.courses.searchcourses' | translate">
+            <ng-template>
+                <ion-content>
+                    <ion-refresher [enabled]="!!siteHomeComponent && siteHomeComponent.dataLoaded" (ionRefresh)="siteHomeComponent.doRefresh($event)">
+                        <ion-refresher-content pullingText="{{ 'core.pulltorefresh' | translate }}"></ion-refresher-content>
+                    </ion-refresher>
+                    <core-sitehome-index [downloadEnabled]="downloadEnabled"></core-sitehome-index>
+                </ion-content>
+            </ng-template>
+        </core-tab>
+
+        <core-tab  [title]="'core.courses.home' | translate">
+            <ng-template>
+                <ion-content>
+                    <ion-refresher [enabled]="dashboardLoaded" (ionRefresh)="refreshDashboard($event)">
+                        <ion-refresher-content pullingText="{{ 'core.pulltorefresh' | translate }}"></ion-refresher-content>
+                    </ion-refresher>
+                    <core-loading [hideUntil]="dashboardLoaded" class="core-loading-center">
+                       
+                             <!-- Dashboard blocks. -->
+                    <section class="list profile">
+                        <div class="row borderBTM">
+                            <div class="col">
+                                <div class="list">
+                                    <div class="item item-avatar"  style="padding-left: 15px;"href="#">
+                        
+                         <img *ngIf="profile.img_url" class="user" src="{{profile.img_url}}" role="presentation" alt="Description" > 
+                         <img *ngIf="!profile.img_url" class="user" src="assets/img/user-avatar.png"  role="presentation" alt="Description">
+                        <img src="assets/img/dash/Medal_Inclined_Silver.png" alt="" class="user-badge" *ngIf="comprehensivelevelsdata.level == 1">
+                        <img src="assets/img/dash/Medal_Inclined_Gold.png" alt="" class="user-badge" *ngIf="comprehensivelevelsdata.level === 2">
+                        <img src="assets/img/dash/Medal_Inclined_Diamond.png" alt="" class="user-badge" *ngIf="comprehensivelevelsdata.level === 3">
+                     <div class="user-data">
+                        <h2 class="username"> {{profile.username}}
+                                <span class="rank"> | Rank {{profile.rank}}</span>
+                        </h2>
+                          <p class="points"> Level : {{profile.learning_level}} </p> 
+                          <p class="points"> Total Learning Points : {{profile.learing_score}} </p>
+
+                          </div>
+                            <div class="coins">
+                                <span class="coins-pot">{{profile.coins}}
+                                </span>
+                                <span>Total coins</span>
+                            </div> 
+                    </div>
+                </div>
+            </div>
+        </div> 
+            <div class="row">
+                <div class="col-33 leaderboard "  (click)="leaderboard_push()">
+                    <a href="#" title="" style="
+    padding-left: 20px;
+">
+                        <img class="leaderboardicon1" src="assets/img/dash/efdf.png" />
+                        <p class="text"> Leaderboard</p>
+                    </a>
+                </div>
+                 <div class="col-33  borderLR "  (click)="Rewards()">
+                    <a href="#" title="" style="
+    padding-left: 20px;
+">
+                        <img class="leaderboardicon2" src="assets/img/dash/reward.png" />
+                        <p class="text" > Rewards</p> 
+                    </a>
+                </div>
+                <div class="col-33 notification"  (click)="notification()">
+                    <a href="#" title="" style="
+    padding-left: 20px;
+">
+                        <img class="leaderboardicon3" src="assets/img/dash/notify.png" />
+                        <p class="text"> Notifications</p>
+                    </a>
+                </div>
+                </div> 
+                        </section>
+                 
+                        <section class="list">
+      <!--    <a class="item item-icon-right borderBTMtlr" href="" title="">
+                <i class="icon ion-ios-arrow-right estar-arrow-right"></i> 
+            </a> -->
+            <div class="card marginBtm">
+          
+                <div class="custom-item item item-text-wrap">
+                  <hr> 
+                    <h3 class="item-body">Progress <span class="item-note"> {{comprehensivelevelsdata.totalpercen}}%</span></h3>
+                    <br><div class="custome-progress">
+                        <img src="assets/img/dash/Tractor_0{{tractor}}.gif" alt="" />
+                    </div>
+                    <!-- <progress value="50" max="100"></progress> -->
+                    <div class="row progress-badge ">
+                        <div class="col-33 text-left" id="silver">
+                            <img src="assets/img/dash/Medal_Straight_Silver.png" class="silver" [ngClass]="{width: comprehensivelevelsdata.level == 1}" />
+                            <p id="silverp" [ngClass]="{select: comprehensivelevelsdata.level == 1, blueContent: comprehensivelevelsdata.level == 1, blackContent: comprehensivelevelsdata.level == 2 || comprehensivelevelsdata.level == 3}">Silver </p>
+                        </div>
+                        <div class="col-33 text-center" id="gold">
+                            <img  id="gold"src="assets/img/dash/Medal_Straight_Gold.png" [ngClass]="{imageWidth: comprehensivelevelsdata.level == 2}" />
+                            <p id="goldp" [ngClass]="{select:  comprehensivelevelsdata.level == 1 || comprehensivelevelsdata.level == 2 , blueContent: comprehensivelevelsdata.level == 2, blackContent: comprehensivelevelsdata.level == 3 || comprehensivelevelsdata.level == 1 }">Gold </p>
+                        </div>
+                        <div class="col-33 text-right" >
+                            <img  id="diamond" src="assets/img/dash/Medal_Straight_Diamond.png" class="daimond" [ngClass]="{imageWidth: comprehensivelevelsdata.level == 3}" />
+                            <p  id="diamondp" [ngClass]="{select: comprehensivelevelsdata.level == 2 || comprehensivelevelsdata.level == 3, blackContent: comprehensivelevelsdata.level == 1 || comprehensivelevelsdata.level == 2, blueContent: comprehensivelevelsdata.level == 3}">Diamond </p>
+                        </div>
+                        <div class="custom-prograss custom-item item item-text-wrap col">
+                   <div class="cp-value"  [ngStyle]= "{'width': progressBar + '%' }" ></div>  
+                        </div>
+                       
+                    </div> 
+<!-- DSE -->
+                    <div class="target" *ngIf="targetData.user_type == 'DSE' " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Deliveries</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value"> {{targetData.deliveries}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                           
+                        </div>
+                                    </div>
+                    <br>
+                    
+
+                    <!--- ABM  -->
+
+                    <div class="target" *ngIf="targetData.user_type == 'ABM' " >
+                            <div class="col-50 currentlevel">    
+                            <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                        </div>
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Deliveries</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value"> {{targetData.deliveries}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+             <!--             <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+             <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>   
+                        <br> <br>
+                                  
+                                  </div> 
+                                  
+
+                    <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type == ('RBM' || 'DGM' ||  'Manager Demand Generation' || 'DD' || 'DD Executive (DDE)' || 'Regional DD Manager' || 'PO' || 'Project Officer' || 'Demonstrator - Tractor' || 'Dealer' || 'commando' || 'Dealer VIP' || 'Sales Manager' || 'Branch Manager'  || 'Manager'   || 'Sales Chief'   || 'SC'   || 'ETDC'   || 'Service'   || 'Executive'   || 'ZingHR-Executive' ) " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+                        <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type == 'RBM'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'DGM'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'Manager Demand Generation'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'DD'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'DD Executive (DDE)'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'Regional DD Manager'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'PO'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'Project Officer'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'Demonstrator - Tractor'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==   'Dealer'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'commando'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==   'Dealer VIP' " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type == 'Sales Manager'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'Branch Manager'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'Manager'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==   'Sales Chief'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'SC'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==    'ETDC'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type == 'Service'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+                        <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type == 'Executive'  " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             
+             <!-- Sales roles  -->
+
+                     <div class="target" *ngIf="targetData.user_type ==  'ZingHR-Executive' " >
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+         
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                  
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.abm_coaching_target}}</p>
+                            </div>
+                        </div>  
+                        
+                        </div>
+             
+             <!-- Sales role finished -->
+             
+              
+                              
+
+                        <!-- Service roles  -->
+                        
+                        <div class="target" *ngIf="targetData.user_type == 'Dealer Service Technician(DST - Ustad)' " >
+                            <div class="col-40 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-40 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+               <!--           <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Psf</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value"> {{targetData.psf}}({{targetData.psf_target}})</p>
+                            </div>
+                        </div> 
+                        
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Online Quiz</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.online_quiz}}({{targetData.online_quiz_target }})</p>
+                            </div>
+                        </div>
+                        
+
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Experience Year</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.experience_year}}</p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Experience Month Days</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.experience_month_days}}({{targetData.experience_target}})</p>
+                            </div>
+                        </div>
+
+                       
+                        
+         <br><br>
+            
+                     </div>
+                        
+
+
+                        <!--  Workshop Manager(WSM)  -->
+
+                           
+                        <div class="target" *ngIf="targetData.user_type == 'Workshop Manager(WSM)' " >
+                            <div class="col-50 currentlevel">
+                          
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+                     
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                 
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                  <!--        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Sqi</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value"> {{targetData.sqi}}({{targetData.sqi_target}})</p>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Cei</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.cei}}({{targetData.cei_target }})</p>
+                            </div>
+                        </div>
+                       
+
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Online Quiz</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.online_quiz}}({{targetData.online_quiz_target}})</p>
+                            </div>
+                        </div>
+
+                       
+                        <br> <br>
+                                 
+                       
+                                </div>
+
+                       
+
+                        <!-- ASM , RSM , SO , TSM,  -->
+                        <!-- TSM-->
+                               <div class="target" *ngIf="targetData.user_type == 'TSM'  " >
+                   
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+           
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                   <!--      <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        </div>
+                        <!-- SO-->
+                               <div class="target" *ngIf="targetData.user_type == 'SO'  " >
+                   
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+           
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                 <!--         <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        </div>
+                        
+                        <!-- RSM-->
+                                <div class="target" *ngIf="targetData.user_type == 'RSM'  " >
+                   
+                            <div class="col-50 currentlevel">
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+           
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                 <!--         <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        </div>
+                                <!-- ASM -->
+                         <div class="target" *ngIf="targetData.user_type == 'ASM' " >
+                   
+                            <div class="col-50 currentlevel">
+                       <p class="level">   Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+           
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                 <!--         <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        </div>
+            
+                    
+
+                    <!-- ETM -->
+
+                    <div class="target" *ngIf="targetData.user_type == 'ETM' " >
+                   
+                       <div class="col-50 currentlevel">
+                          
+                       <p class="level">   Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+             
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                   <!--       <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Online Quiz</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.online_quiz}}({{targetData.online_quiz_target}})</p>
+                            </div>
+                        </div>
+                        
+                                    </div>
+                 
+                    
+                            <!-- CRE -->
+
+
+                    <div class="target" *ngIf="targetData.user_type == 'Customer Relationship Executive(CRE)' " >
+                   
+                            <div class="col-50 currentlevel">
+                          
+                       <p class="level">    Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+                     <!--     <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Online Quiz</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.online_quiz}}({{targetData.online_quiz_target}})</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Fsa</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.fsa}}({{targetData.fsa_target}})</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Int Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.int_score}}({{targetData.int_target}})</p>
+                            </div>
+                        </div>
+                        
+                        </div>
+                        
+
+                        <!-- SPM  -->
+
+                    <div class="target" *ngIf="targetData.user_type == 'Spares Parts Manager(SPM)' " >
+                   
+                            <div class="col-50 currentlevel">
+                          
+                       <p class="level">  Current level : {{targetData.current_level}} </p>
+                            </div>  <br>
+                            <div class="col-50 targetlevel">
+                         <p class="level" style="margin-left: -7px;">     Target level : {{targetData.next_level}} </p>
+                            </div>
+                        <br>
+                         <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_point}} ({{targetData.learning_target}})</p>
+                            </div>
+                        </div>
+             <!--             <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Target</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.learning_target}}</p>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Online Quiz</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.online_quiz}}({{targetData.online_quiz_target}})</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Spare</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.spare}}({{targetData.spare_target}})</p>
+                            </div>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Lubes</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{targetData.lubes}}({{targetData.lubes_target}})</p>
+                            </div>
+                        </div>
+                        
+                 
+                 </div> 
+
+                 <!-- Sales tools link -->
+
+      
+
+<!--  Old conditions -->
+
+                 
+                   
+              <!--       <div class="target" >
+                   
+                        <div class="row display_level" *ngIf="comprehensivelevelsdata.level == 1">
+                            <div class="col-50 currentlevel">
+                          
+                       <p class="level">    Current level : Silver </p>
+                            </div>  
+                            <div class="col-50 targetlevel">
+                         <p class="level">     Target level : Gold </p>
+                            </div>
+                        </div>
+                        <div class="row display_level" *ngIf="comprehensivelevelsdata.level == 2">
+                            <div class="col-50 currentlevel">
+                          <p class="level">      Current level: Gold </p>
+                            </div>
+                            <div class="col-50 targetlevel">
+                         <p class="level">      Target level : Diamond </p>
+                            </div>
+                        </div>
+                        <div class="row display_level" *ngIf="comprehensivelevelsdata.level == 3">
+                            <div class="col-50 currentlevel">
+                         <p class="level">      Current Level : Diamond </p>
+                            </div>
+                            <div class="col-50 targetlevel">
+
+                            </div>
+                        </div> 
+                        <br>
+                       
+                        <p class="lsize"> Target to reach next level</p>
+                        <hr>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Deliveries</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value"> {{comprehensivelevelsdata.deliveriestocomplete.deliveriesvalue}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">Learning Score</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{comprehensivelevelsdata.learningstocomplete.learningvalue}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-80">
+                                <p class="target-message">ABM coaching</p>
+                            </div>
+                            <div class="col-20">
+                                <p class="target-value">{{comprehensivelevelsdata.abmtocomplete.abmvalue}}</p>
+                            </div>
+                        </div>
+                        <h3 class="enddate">End date<span class="item-note">{{comprehensivelevelsdata.enddate}}</span></h3>
+                    </div> --> 
+
+                     <div class="list" id="salestool">
+            <a class="item item-icon-right  salestools" (click)="salestools()" title="Sales Tools" style="
+    font-size: 18px; ">
+            <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" style="position: absolute; right: 33px;"></ion-icon> <p id="salestoolp">Sales Tools </p>
+            </a>
+        </div>
+         <br><br>
+                    
+                </div>
+            </div>
+            <br>
+    
+        </section>
+                     
+
+                        <core-empty-box *ngIf="blocks.length == 0" icon="qr-scanner" [message]="'core.course.nocontentavailable' | translate"></core-empty-box>
+                    </core-loading>
+                </ion-content>
+            </ng-template>
+        </core-tab>
+
+        <!-- Dashboard tab. -->
+        <core-tab [show]="dashboardEnabled" [title]="'core.courses.mycourses' | translate">
+            <ng-template>
+                <ion-content>
+                    <ion-refresher [enabled]="dashboardLoaded" (ionRefresh)="refreshDashboard($event)">
+                        <ion-refresher-content pullingText="{{ 'core.pulltorefresh' | translate }}"></ion-refresher-content>
+                    </ion-refresher>
+                    <core-loading [hideUntil]="dashboardLoaded" class="core-loading-center">
+                        <ion-list>
+                            <!-- Dashboard blocks. -->
+                            <ng-container *ngFor="let block of blocks">
+                                <core-block *ngIf="block.visible" [block]="block" contextLevel="user" [instanceId]="userId" [extraData]="{'downloadEnabled': downloadEnabled}"></core-block>
+                            </ng-container>
+                        </ion-list>
+
+                        <core-empty-box *ngIf="blocks.length == 0" icon="qr-scanner" [message]="'core.course.nocontentavailable' | translate"></core-empty-box>
+                    </core-loading>
+                </ion-content>
+            </ng-template>
+        </core-tab>
+
+        
+
+        <!-- Tab to display if both site home and dashboard are disabled. -->
+        <core-tab [show]="!siteHomeEnabled && !dashboardEnabled" [title]="'core.courses.mymoodle' | translate">
+            <ng-template>
+                <ion-content>
+                    <ion-refresher [enabled]="mcComponent && mcComponent.coursesLoaded" (ionRefresh)="refreshMyCourses($event)">
+                        <ion-refresher-content pullingText="{{ 'core.pulltorefresh' | translate }}"></ion-refresher-content>
+                    </ion-refresher>
+                    <core-courses-my-courses></core-courses-my-courses>
+                </ion-content>
+            </ng-template>
+        </core-tab>
+    </core-tabs>
+</ion-content>

@@ -1,0 +1,156 @@
+
+<ion-header>
+  <ion-navbar>
+		  <ion-buttons left>
+		<button ion-button navPop icon-only>
+
+		</button>
+	</ion-buttons>
+  
+ <img src="assets/img/escorts-academy.png" class="core-header-logo" [alt]="Escorts" style="height: 30px;margin-top: 40px;position: fixed;left: 47px;top: -25px;" >
+    <ion-title>  <p style="text-align: center;position: fixed;top: -31px;left: 95px;">Prize</p></ion-title>
+
+  </ion-navbar>
+</ion-header>
+ <ion-content padding="true" mm-state-class>
+ <ion-segment [(ngModel)]="segment">
+    
+    <ion-segment-button value="learning">
+   Learning
+    </ion-segment-button>
+    <ion-segment-button value="certification">
+      Certification Prize
+    </ion-segment-button>
+ 
+
+  </ion-segment>
+
+  <div [ngSwitch]="segment">
+    <ion-card *ngSwitchCase="'learning'">
+
+      <ion-card-content>
+  <div class="card">
+                    <div class="item item-avatar">
+                        <img *ngIf="profile.img_url" class="user" src="{{profile.img_url}}" mm-external-content alt="pictureof" role="presentation">
+                        <img *ngIf="!profile.img_url" class="user" src="assets/img/user-avatar.png" alt="pictureof" role="presentation">
+                        <div class="name"> <span>{{userinfo.username}}</span>
+                            <span class="line"> | </span>
+                            <span class="rank">  Rank{{profile.rank}} </span>
+                        </div>
+                        <p> Level : {{profile.learning_level}}</p>
+                        <!--                    <p> {{'mma.prizes.totalcoins' | translate}} {{userinfo.coins}}</p>
+ -->
+                        <p>Total learning points {{profile.learing_score}}</p>
+                    </div>
+                </div>
+                <div class=" card">
+                    <div class="item item-divider">
+                       Your Total Coins<span>{{profile.coins}}</span>
+                    </div>
+                    </div>
+<br>
+                    <div class=" card">
+                    <div class="item item-divider ">
+                       Your Rewards
+                    </div>
+                    <span  *ngFor="let reward of learningPrize.reward " >
+                    <!-- below line code [ngClass]="{'disabled-data': reward.redeem_disble == 0}" -->
+                    <div class="item list-content item-text-wrap giftImage"  (click)="showPopup( reward.redeem_disble, reward, 2)">
+                        <p>{{reward.rewardname}}</p>
+                        <p> Redeem this prize with coins {{reward.rewardcoins}}</p>
+                        <span class="item-avatar-right">
+                   <img  *ngIf="reward.redeem_disble != 0" src="assets/img/img/prizes/GiftActive.png" alt="" />
+                    <img  *ngIf="reward.redeem_disble == 0"  src="assets/img/img/prizes/GiftInactive.png" alt="" />
+                    
+                    </span>
+                    </div>
+                    </span>
+                </div>
+                <br>
+                <div class="card">
+                       <div class="item item-divider " style="height: 51px;">
+                    <span class=" item item-icon-right" title="Prizes" (click)="getRewardtype(2, 'site.prizes-prizeshistory')">
+                        <h2 style="position: absolute;left: 50px;color: black;"> Redeem history </h2><ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon> <br>
+                    </span>
+                    </div>
+                </div>
+      </ion-card-content>
+    </ion-card>
+  
+    <ion-card *ngSwitchCase="'certification'">
+  
+      <ion-card-content>
+      
+          <div class="list">
+                                
+            <div class="item item-avatar" >
+                  
+                        
+                       <img *ngIf="profile.img_url"  class="user" src="{{profile.img_url}}" role="presentation" alt="Description" > 
+                        <img *ngIf="!profile.img_url" class="user" src="assets/img/user-avatar.png"  role="presentation" alt="Description">
+                        <img src="assets/img/dash/Medal_Inclined_Silver.png" alt="" class="user-badge" *ngIf="profile.learning_level == 1">
+                        <img src="assets/img/dash/Medal_Inclined_Gold.png" alt="" class="user-badge" *ngIf="profile.learning_level === 2">
+                        <img src="assets/img/dash/Medal_Inclined_Diamond.png" alt="" class="user-badge" *ngIf="profile.learning_level === 3">
+                         <div class="name"> <span>{{profile.username}}</span>
+                            <span class="line"> | </span>
+                            <span class="rank">  rank {{profile.rank}} </span>
+                        </div>
+                        <p>level: {{profile.learning_level}}</p>
+                        <!--  *ngIf="comphrensivePrize.static_rewards.length"  
+                        *ngFor="let prize of comphrensivePrize     *ngIf="prize.value                <p> {{'mma.prizes.totalcoins' | translate}} {{userinfo.coins}}</p>
+ -->
+                        <p>Total learning points {{profile.learing_score}}</p>        
+                </div>   
+            </div>
+               <div class="list" >
+                    <div class="item CSItem item-icon-right item-text-wrap" >
+                        <h2> {{prize}} <span > {{prize}} times </span></h2>
+                        <p> {{prize}} </p>
+                        <p class="require"> Certificate help </p>
+
+                    </div>
+                </div>
+
+                  <div class=" card">
+                  <div class="item item-divider" *ngIf="!comphrensivePrize?.length > 0">
+                       your rewards
+                    </div>
+                    <span *ngFor="let reward of comphrensivePrize.dynamic_rewards" >
+                    <div class="item list-content item-text-wrap giftImage"   [ngClass]="{'disabled-data': reward.redeem_disble == 0}" (click)="showPopup( reward.redeem_disble, reward, 1)" >
+                    <span *ngIf="reward.visible==1 && comphrensivePrize.dynamic_rewards" > 
+                        <p>{{reward.message}}</p>
+                        <p> {{reward.norewardsmsg}}</p>
+                        <span class="item-avatar-right">
+                            <img  src="assets/img/prizes/GiftActive.png" alt="" />
+                        </span>
+                        </span>
+                    </div>
+                    </span>
+                    <div class="item item-avatar-left item-text-wrap M_S_Silver" *ngIf="comphrensivePrize?.length > 0">
+                        <img src="assets/img/dash/Medal_Straight_Silver.png">
+                        <p>{{comphrensivePrize.norewardsmsg}}</p>
+                    </div>
+                  </div>
+                  <div class="card redeeme" (click)="getRewardtype(1, 'site.prizes-prizeshistory')">
+                   <div class="item item-divider " style="height:70px;">
+                    <span class=" item item-icon-right" title="Prizes">
+                 
+      <h2 style="position: absolute;left: 70px;color: black;">  Redeem history  </h2><ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon> 
+                    </span> <br>
+                    <div class="item list-content " *ngIf="comphrensivePrize.dynamic_rewards">
+                        <p>Raise concern</p>
+                    </div>
+                    </div>
+                </div>
+
+      </ion-card-content>
+    </ion-card>
+
+  
+  </div>
+
+
+
+      
+    </ion-content>
+

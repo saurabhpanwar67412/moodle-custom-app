@@ -1,0 +1,53 @@
+<!--
+  Generated template for the RewardissuesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+		  <ion-buttons left>
+		<button ion-button navPop icon-only>
+
+		</button>
+	</ion-buttons>
+   <img src="assets/img/escorts-academy.png" class="core-header-logo" [alt]="Escorts" style="height: 30px;margin-top: 40px;position: fixed;left: 47px;top: -25px;" >
+    <ion-title>  <p style="text-align: center;position: fixed;top: -31px;left: 56px;">Redeem History</p></ion-title>
+
+  
+  </ion-navbar>
+</ion-header>
+<ion-content padding="true" mm-state-class>
+        <div class="card">
+            <table class="table table-striped">
+                <tr>
+                    <td class=issue  *ngIf="history.issue_question == 'redeem_issue_question' ">Redeem Issue Question </td>
+                </tr>
+                <tr>
+                     <td *ngFor= "let issue of history.redeem_history_issues_list"> 
+
+                     <ion-radio value="issue.issuestring"  ng-value="issue" value="issue.issuestring" ngDefaultControl [(ngModel)]="redeemIssue" > {{issue.issuestring}} </ion-radio>
+             <!--    <ion-radio   ng-repeat="issue in history.redeem_history_issues_list" ng-value="issue" value="issue.issuestring" name="Radio1" ng-model="redeemIssue.issue">{{'mma.prizes.' + issue.issuestring | translate}}</ion-radio> 
+            -->
+             </td>                       
+                </tr>
+                <tr>
+                    <td class="table-button"> <button class button navPop > <a class="button button-cancel">
+                       Cancel
+                         </a> </button>
+                         <!-- [disabled]="!redeemIssue.issue -->
+                        <button class="button   button-save" (click)="submitIssue()"  >
+ Submit
+                </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </ion-content>
+
+  
+
+
+
+
+ 

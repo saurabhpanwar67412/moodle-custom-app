@@ -1,0 +1,233 @@
+$line-height-computed: 30px;
+$table-cell-padding: 5px;
+$line-height-base: 25px;
+$table-border-color: #444;
+$body-bg: #ccc;
+$color-5bc22a: #5bc22a;
+$color-1b4ba0: #1b4ba0;
+$font-colorTd: #5d5d5d;
+$font-colorTh: #232323;
+$table-bg-accent: #f0f0f0;
+$table-bg-section: #ffffff;
+$section-border: #ccc;
+
+.fullname {
+    font-size: 16px !important;
+    font-weight: 450;
+    color: #6d6969;
+    margin-top: 0px !important;
+    padding-top: 15px !important;
+
+}
+.ion-ios-arrow-forward:before {
+    content: "\f3d1";
+    font-size: 30px;
+    position: absolute;
+    right: 36px;
+}
+section {
+    background-color: $table-bg-section;
+    margin-bottom: 10px;
+    .row+.row {
+        margin-top: 0;
+    }
+   
+    
+}
+.row {
+    .list {
+        .item-avatar {
+            border-width: 0;
+            padding-left: 80px;
+            padding-top: 5px;
+            padding-right: 60px;
+            img.user {
+                max-width: 70px;
+                max-height: 70px;
+                left: 0;
+                top: 0;
+            }
+            
+          
+          
+        }
+    }
+    // .col-33 {
+    //     text-align: center;
+    //     margin: 10px 0;
+    //     a {
+    //         display: block;
+    //         text-decoration: none;
+    //         img {
+    //             height: 50px;
+    //         }
+    //         p {
+    //             color: $section-border;
+    //         }
+    //     }
+    // }
+    
+}
+.coins {
+    max-width: 60px;
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    img {
+        max-width: 60px;
+        position: relative;
+        left: 0px;
+        top: 0px
+    }
+    
+}
+span {
+    font-size: 12px;
+    padding: 0;
+}
+.coins_rs {
+    position: absolute;
+    top: 30px;
+    right: 18px;
+    color: #fff;
+    font-size: 12px;
+}
+.rank {
+    color: $color-1b4ba0;
+}
+.borderLR {
+    border-left: 1px solid $section-border;
+    border-right: 1px solid $section-border;
+    box-sizing: border-box;
+}
+.card {
+    background-color: $table-bg-section;
+    // .custom-prograss {
+    //     height: 5px;
+    //     margin: 5px 15px;
+    //     padding: 0;
+    //     background-color: #d7d7d7;
+    //     border-radius: 5px;
+    //     div {
+    //         height: 5px;
+    //         margin: 0;
+    //         padding: 0;
+    //         background-color: $color-5bc22a;
+    //         border-radius: 5px;
+    //     }
+    // }
+    // .progress-badge {
+    //     padding: 5px 5px 0px 5px;
+    //     .col-33 {
+    //         margin-bottom: 0;
+    //         img {
+    //             width: 50px;
+    //         }
+    //         p {
+    //             span {
+    //                 padding: 0 10px;
+    //             }
+    //             span.select {
+    //                 padding: 8px 10px;
+    //                 border-bottom: 3px solid $color-1b4ba0;
+    //             }
+    //         }
+    //     }
+    // }
+}
+.borderBTM {
+    border-bottom: 1px solid $section-border;
+}
+.custom-item {
+    border-bottom: 0px solid $section-border;
+    padding: 5px 15px;
+    img {
+        width: 100%;
+    }
+   
+  
+}
+h3 {
+    border-left: 3px solid $color-1b4ba0;
+    padding: 5px;
+}
+.score {
+    color: $color-5bc22a;
+    font-size: 20px;
+    font-weight: bold;
+}
+.borderBTMtlr {
+    border-bottom: 1px solid $section-border;
+    border-left: 0px solid $section-border;
+    border-top: 0px solid $section-border;
+    border-right: 0px solid $section-border;
+}
+.border {
+    border: 0;
+}
+
+#salestoolmessage{
+    font-size: 24px;
+    color: black;
+}
+
+// .table {
+//     width: 100%;
+//     max-width: 100%;
+//     color: $font-colorTd;
+//     border: 10px solid #fff;
+//     box-sizing: border-box;
+//     background-color: #fff;
+//     >thead,
+//     >tbody,
+//     >tfoot {
+//         >tr {
+//             >th {
+//                 padding: $table-cell-padding;
+//                 line-height: $line-height-base;
+//                 vertical-align: top;
+//                 border-top: 0px solid $table-border-color;
+//                 text-align: left;
+//                 color: $font-colorTh;
+//                 font-size: 16px;
+//             }
+//             >td {
+//                 padding: $table-cell-padding;
+//                 line-height: $line-height-base;
+//                 vertical-align: top;
+//                 border-top: 0px solid $table-border-color;
+//             }
+//         }
+//     } // Bottom align for column headings
+//     >thead>tr>th {
+//         vertical-align: bottom;
+//         border-bottom: 2px solid $table-border-color;
+//     } // Remove top border from thead by default
+//     >caption+thead,
+//     >colgroup+thead,
+//     >thead:first-child {
+//         >tr:first-child {
+//             >th,
+//             >td {
+//                 border-top: 0;
+//             }
+//         }
+//     } // Account for multiple tbody instances
+//     >tbody+tbody {
+//         border-top: 0px solid $table-border-color;
+//     } // Nesting
+//     .table {
+//         background-color: $body-bg;
+//     }
+// }
+// .table-striped tbody tr:nth-child(even) {
+//     background: $table-bg-accent;
+// }
+.ion-ios-customsalestools,
+.ion-md-customsalestools {
+    content: url("../assets/img/salestool/salestool.png");
+    width: 28px;
+    height: 40px !important;
+    padding: 10px 0px 2px;
+    // opacity: 0.65;
+}
